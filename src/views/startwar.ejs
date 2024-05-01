@@ -1,0 +1,21 @@
+<%- include('partials/header') -%>
+
+<% if (error === "") { %> 
+    
+    <ul>
+        <% for (let i = 0; i <starwarsPeople.length; i++){ %>
+        <li>
+            <%= starwarsPeople[i].name %>
+        </li>
+        <% } %>
+    </ul>
+
+<% } else { %>
+
+    <h1>
+        <%= error %>
+    </h1>
+
+<% } %>
+
+<%- include('partials/footer') -%>
