@@ -1,59 +1,27 @@
-# Express OpenID Connect Webapp Sample
+respecto a la prueba y sus dificultades:
 
-This sample demonstrates authentication for an Express Node.js app. The sample quickly shows how to log in, log out, and view profile information of the logged-in user.
+segun lo conversado se creo una app pequena para la conexion de AUTH0, luego de ingresar a la pagina de auth0 confirmar una cuenta y configurar los detalles de desarrollo, se procedio a descargar la app que te permiten en la pagina como ejemplo. a partir de esta aplicacion se modifico y se creo una nueva ruta, de ingreso (starwar) ruta que se modifico para realizar una consulta a una app externa gratuita mediante axios, estas rutas pueden ser modificadas para la realizacion de las acciones que se realizaran van desde el renderizado de una pagina, el envio un archivo sendFile, un json, o un query en la base de datos pueden ser post, get, put, delete...
 
-See a detailed walk-through of this sample app on the [Express Quickstart](https://auth0.com/docs/quickstart/webapp/express).
+posteriormente se configuro typescript con express, para ello se creo y modifico el archivo tsconfig y package.json aunque posteriormente se utilizaron los tipos de express, para demostrar la posibilidad en el uso de tipescript se creo una interface ErrorWithStatus que se encuentra en src/shared/model el cual es llamado en una ruta especifica, ademas de eso en el archivo types.d.ts se declaro el modulo dotenv que arrojaba error al hacerlo por npm (npm --save-dev @types/dotenv)
 
-## Running This Sample Locally
+se modificaron los archivos header.ejs para la anexion del logo de la compania y se creo una nueva pagina vista startwar.ejs el cual muestra de manera sencilla el name obtenido por la consulta. 
 
-1. Install the dependencies with npm:
+por ultimo se configuro la cuenta github (contrasena shh) se realizaron 3 commit y se subio el repositorio como publico para su evaluacion
 
-```bash
+-- uso de aplicacion:
+
 npm install
-```
+* opcional npm run build("tsc")
+npm run start
 
+-preguntas posibles:
 
-2. Rename `.env.example` to `.env` and replace or check the following values. 
+* morgan es un logger que se encarga de enviar mensajes para cada solicitud http facilitando sus tipos debe ser configurada, hay varios tipos uno de estos es dev, sin embargo existen otros como common.
 
-> ⚠️ Note: If you downloaded this sample app directly from Auth0 Manage Dashboard, or from Auth0 Docs _and_ you chose the Auth0 application you're creating this sample for, then you can check these are configured already: 
+* el ejs es un formato ampliamente utilizado en express combina html con javascript <%%> todo lo que se encuentre entre esos simbolos significa que estamos introducion codigo javascript.
 
-- `CLIENT_ID` - your Auth0 application client id
-- `ISSUER_BASE_URL` - absolute URL to your Auth0 application domain (ie: `https://accountName.auth0.com`)
-- `SECRET` - a randomly rengerated string. You can generate one on the command line with the following `openssl rand -hex 32`
+* http-errors nos permite modificar la definicion de error de manera sencilla, aunque podriamos haber obtado por un class ErrorWithStatus extends Error se prefirio esta forma por su facilidad.
 
-```bash
-mv .env.example .env
-```
+* los detalles en server se encuentran brevemente comentados el proceso es basicamente el siguiente se definen las carpetas public, las vistas(con que trabajan) el modelo de respuesta(json) se carga el archivo .env, se configura el logger(morgan) se define las rutas principales(archivo aparte), se define el comportamiento en caso de error.
 
-3. Run the sample app:
-
-```bash
-npm start
-```
-
-The sample app will be served at `localhost:3000`.
-
-## Support + Feedback
-
-Please use the [Issues queue](https://github.com/auth0-samples/auth0-express-webapp-sample/issues) in this repo for questions and feedback.
-
-## Vulnerability Reporting
-
-Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
-
-## What is Auth0?
-
-Auth0 helps you to easily:
-
-- implement authentication with multiple identity providers, including social (e.g., Google, Facebook, Microsoft, LinkedIn, GitHub, Twitter, etc), or enterprise (e.g., Windows Azure AD, Google Apps, Active Directory, ADFS, SAML, etc.)
-- log in users with username/password databases, passwordless, or multi-factor authentication
-- link multiple user accounts together
-- generate signed JSON Web Tokens to authorize your API calls and flow the user identity securely
-- access demographics and analytics detailing how, when, and where users are logging in
-- enrich user profiles from other data sources using customizable JavaScript rules
-
-[Why Auth0?](https://auth0.com/why-auth0)
-
-## License
-
-This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more info.
+* dentro de las rutas se define si utlizaran el midleware, o no requeriran autentificacion.
